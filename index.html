@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Jimin-ssi · K-pop Store & Drinks</title>
+  <meta name="description" content="Jimin-ssi: loja K-pop em Caxias-MA — álbuns, photocards, lightsticks, pôsteres, chaveiros e acessórios de BTS, BLACKPINK, TWICE, STRAY KIDS, TXT, ATEEZ e MAMAMOO, com drinks e comidas coreanas." />
+  <meta name="theme-color" content="#ff1f8e" />
+  <link rel="icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Intro: burst gerado em Python (tools/intro_animacao.py) + letras animadas com GSAP -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <img class="intro__burst" src="/intro/burst.webp" alt="" width="520" height="520" />
+    <div class="intro__logo">
+      <svg class="intro__crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 36 L8 8 L22 22 L32 4 L42 22 L56 8 L60 36 Z" /></svg>
+      <h1 class="intro__word" data-split>Jimin-ssi</h1>
+      <p class="intro__ko">사랑해요 · K-pop &amp; drinks</p>
+    </div>
+    <button class="intro__skip" type="button">Pular</button>
+  </div>
+
+  <canvas class="fx-canvas" id="fx" aria-hidden="true"></canvas>
+
+  <div class="topbar">
+    <div class="marquee" aria-label="Avisos da loja">
+      <div class="marquee__track">
+        <span><svg class="ico" aria-hidden="true"><use href="#i-brilho"/></svg>K-pop, drinks e muito mais</span><span><svg class="ico" aria-hidden="true"><use href="#i-caminhao"/></svg>Frete para todo o Brasil</span><span><svg class="ico" aria-hidden="true"><use href="#i-cadeado"/></svg>Compra segura</span><span><svg class="ico" aria-hidden="true"><use href="#i-coracao"/></svg>BTS, BLACKPINK, TWICE e mais</span><span><svg class="ico" aria-hidden="true"><use href="#i-conversa"/></svg>Atendimento via WhatsApp</span>
+        <span aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-brilho"/></svg>K-pop, drinks e muito mais</span><span aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-caminhao"/></svg>Frete para todo o Brasil</span><span aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-cadeado"/></svg>Compra segura</span><span aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-coracao"/></svg>BTS, BLACKPINK, TWICE e mais</span><span aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-conversa"/></svg>Atendimento via WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="header" id="header">
+    <a class="brand" href="#inicio" aria-label="Jimin-ssi, início">
+      <svg class="brand__crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 36 L8 8 L22 22 L32 4 L42 22 L56 8 L60 36 Z" /></svg>
+      <span class="brand__name">Jimin-ssi</span>
+      <span class="brand__tag">K-POP · DRINKS · FOOD</span>
+    </a>
+    <label class="search">
+      <span class="sr-only">Buscar produtos</span>
+      <input id="search" type="search" placeholder="O que você está procurando?" autocomplete="off" />
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+    </label>
+    <nav class="nav" aria-label="Principal">
+      <a href="#produtos">Produtos</a>
+      <a href="#drink-lab">Drink Lab</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#sobre">Sobre nós</a>
+    </nav>
+    <div class="actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" title="Modo noite">
+        <span class="theme-toggle__dot"></span><span class="theme-toggle__label">Modo noite</span>
+      </button>
+      <button class="icon-btn" id="favBtn" type="button" aria-label="Favoritos">
+        <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-8.6C1.6 8.3 3.7 5 7 5c2 0 3.3 1.1 5 3 1.7-1.9 3-3 5-3 3.3 0 5.4 3.3 4 6.4C19 15.6 12 20 12 20Z" /></svg>
+        <span class="badge" id="favCount">0</span>
+      </button>
+      <button class="icon-btn" id="cartBtn" type="button" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6" /><circle cx="10" cy="20" r="1.4" /><circle cx="17" cy="20" r="1.4" /></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__copy">
+        <p class="hand">Seu universo K-pop, em um só lugar!</p>
+        <h2 class="hero__title" data-split-words>Álbuns, photocards &amp; drinks com sabor de <em>Seul</em></h2>
+        <p class="hero__lead">Álbuns, photocards, lightsticks, pôsteres e chaveiros de BTS, BLACKPINK, TWICE, STRAY KIDS, TXT, ATEEZ e MAMAMOO, com preços para todo bolso. E, pra completar, drinks e comidas coreanas temáticas.</p>
+        <div class="hero__cta">
+          <a class="btn btn--dark magnetic" href="#produtos">Conheça os produtos <span aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost magnetic" href="#drink-lab">Monte seu drink</a>
+        </div>
+        <ul class="hero__tags" aria-label="Destaques">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-coracao"/></svg>7 grupos no catálogo</li><li><svg class="ico" aria-hidden="true"><use href="#i-boba"/></svg>Drinks e comidas coreanas</li><li><svg class="ico" aria-hidden="true"><use href="#i-loja"/></svg>Retire na loja em Caxias-MA</li>
+        </ul>
+      </div>
+      <div class="hero__stage" id="heroStage">
+        <div class="hero__blob" data-depth="0.15"></div>
+        <img class="hero__img" src="/img/hero-drinks.webp" alt="Dois frappés: um de morango e um roxo com mirtilos" width="1200" height="900" data-depth="0.35" />
+        <svg class="sticker sticker--crown" data-depth="0.8" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 36 L8 8 L22 22 L32 4 L42 22 L56 8 L60 36 Z" /></svg>
+        <svg class="ico sticker sticker--heart" data-depth="1.1" aria-hidden="true"><use href="#i-coracao"/></svg>
+        <svg class="ico sticker sticker--spark" data-depth="0.6" aria-hidden="true"><use href="#i-brilho"/></svg>
+        <span class="sticker sticker--note hand" data-depth="0.9" aria-hidden="true">K-pop<br />drinks<br />food</span>
+        <div class="hero__badge" data-depth="0.5"><strong>R$ 18,90</strong><span>Purple Dream</span></div>
+      </div>
+    </section>
+
+    <!-- BENEFÍCIOS -->
+    <section class="perks" aria-label="Por que comprar aqui">
+      <div class="perk reveal"><span><svg class="ico" aria-hidden="true"><use href="#i-selo"/></svg></span><p><b>Produtos originais</b>e licenciados</p></div>
+      <div class="perk reveal"><span><svg class="ico" aria-hidden="true"><use href="#i-caixa"/></svg></span><p><b>Embalagem segura</b>para todo o Brasil</p></div>
+      <div class="perk reveal"><span><svg class="ico" aria-hidden="true"><use href="#i-cartao"/></svg></span><p><b>Pix ou cartão</b>e retirada na loja</p></div>
+      <div class="perk reveal"><span><svg class="ico" aria-hidden="true"><use href="#i-fone"/></svg></span><p><b>Atendimento humanizado</b>de fã pra fã</p></div>
+    </section>
+
+    <!-- PALCO DOS GRUPOS -->
+    <section class="stage" id="grupos" aria-roledescription="carrossel" aria-label="Grupos da loja">
+      <div class="stage__bg"><img id="stageBg" alt="" /></div>
+      <p class="stage__huge" id="stageHuge" aria-hidden="true">BTS</p>
+      <div class="stage__glow" aria-hidden="true"></div>
+      <div class="stage__info">
+        <p class="stage__kicker"><span id="stageFandom">Para ARMY</span> · <span id="stageMeta">7 integrantes · desde 2013</span></p>
+        <h2 class="stage__name" id="stageName">BTS</h2>
+        <p class="stage__lead">Álbuns, photocards, lightsticks e acessórios do seu grupo favorito, num só lugar.</p>
+        <button class="btn btn--light magnetic" id="stageCta" type="button">Ver produtos do BTS <span aria-hidden="true">→</span></button>
+        <p class="stage__credit" id="stageCredit"></p>
+      </div>
+      <figure class="stage__photo"><img id="stageImg" src="/img/grupos/bts.webp" alt="Integrantes do BTS" width="1400" height="1078" /></figure>
+      <div class="stage__tabs" id="stageTabs" role="tablist" aria-label="Escolha o grupo"></div>
+    </section>
+
+    <!-- CATEGORIAS + PRODUTOS -->
+    <section class="section" id="produtos">
+      <header class="section__head">
+        <h2 class="section__title reveal">Categorias</h2>
+        <p class="section__hint reveal">Filtre por categoria, grupo ou faixa de preço</p>
+      </header>
+      <div class="cats" id="cats" role="tablist" aria-label="Categorias"></div>
+      <div class="filters">
+        <div class="chips chips--scroll" id="groupChips" aria-label="Grupos"></div>
+        <div class="chips" id="tierChips" aria-label="Faixa de preço"></div>
+      </div>
+
+      <div class="groupbanner" id="groupBanner" hidden>
+        <img id="gbImg" src="" alt="" />
+        <div><p class="hand" id="gbFandom"></p><h3 id="gbName"></h3><button class="chip" type="button" id="gbClear">Ver todos os grupos <svg class="ico" aria-hidden="true"><use href="#i-fechar"/></svg></button></div>
+      </div>
+
+      <header class="section__head section__head--products">
+        <h2 class="section__title reveal" id="productsTitle">Produtos em destaque</h2>
+        <span class="section__count" id="productsCount"></span>
+      </header>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>Nenhum produto encontrado. Tente outra busca.</p>
+    </section>
+
+    <!-- COMBOS (campanhas do plano: combos e ofertas por tempo limitado) -->
+    <section class="combos" id="combos">
+      <header class="section__head">
+        <div><p class="hand">Campanhas da semana</p><h2 class="section__title reveal">Combos com desconto</h2></div>
+        <p class="section__hint reveal">Quantidade limitada</p>
+      </header>
+      <div class="combos__grid" id="combosGrid"></div>
+    </section>
+
+    <!-- DRINK LAB -->
+    <section class="lab" id="drink-lab">
+      <div class="lab__copy">
+        <p class="hand">Laboratório de sabores</p>
+        <h2 class="section__title reveal">Drink Lab</h2>
+        <p class="lab__lead reveal">Escolha a base, as pérolas e a cobertura. O copo enche na hora, com a sua combinação.</p>
+        <fieldset class="lab__group"><legend>1. Base</legend><div class="chips" id="labBase"></div></fieldset>
+        <fieldset class="lab__group"><legend>2. Pérolas</legend><div class="chips" id="labPearl"></div></fieldset>
+        <fieldset class="lab__group"><legend>3. Cobertura</legend><div class="chips" id="labTop"></div></fieldset>
+        <div class="lab__total">
+          <div><span>Seu drink</span><strong id="labName">Purple Dream</strong></div>
+          <div><span>Preço</span><strong id="labPrice">R$ 18,90</strong></div>
+        </div>
+        <button class="btn btn--dark magnetic" id="labAdd" type="button">Adicionar ao carrinho</button>
+      </div>
+      <div class="lab__stage">
+        <svg class="cup" id="cup" viewBox="0 0 300 420" role="img" aria-labelledby="cupTitle">
+          <title id="cupTitle">Pré-visualização do drink</title>
+          <defs>
+            <clipPath id="cupClip"><path d="M60 110 L240 110 L215 395 Q213 405 203 405 L97 405 Q87 405 85 395 Z" /></clipPath>
+            <linearGradient id="liquidGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop id="liqTop" offset="0" stop-color="#b98cff" />
+              <stop id="liqBot" offset="1" stop-color="#6a2fd6" />
+            </linearGradient>
+          </defs>
+          <rect class="straw" x="168" y="10" width="16" height="200" rx="8" transform="rotate(12 176 110)" />
+          <g clip-path="url(#cupClip)">
+            <g id="liquid" transform="translate(0 400)">
+              <path id="wave" fill="url(#liquidGrad)" d="M0 20 Q37 0 75 20 T150 20 T225 20 T300 20 T375 20 T450 20 T525 20 T600 20 V400 H0 Z" />
+            </g>
+            <g id="pearls"></g>
+          </g>
+          <g id="topping"></g>
+          <path class="cup__glass" d="M60 110 L240 110 L215 395 Q213 405 203 405 L97 405 Q87 405 85 395 Z" />
+          <path class="cup__lid" d="M50 100 Q150 70 250 100 L246 114 L54 114 Z" />
+        </svg>
+        <div class="lab__bubbles" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- CARDÁPIO HORIZONTAL -->
+    <section class="menu" id="cardapio">
+      <div class="menu__pin">
+        <header class="menu__head">
+          <p class="hand">Do nosso balcão</p>
+          <h2 class="section__title">Cardápio K-drinks &amp; food</h2>
+        </header>
+        <div class="menu__track" id="menuTrack"></div>
+      </div>
+    </section>
+
+    <!-- SHOW / ARMY -->
+    <section class="army" id="army">
+      <img class="army__bg" src="/img/concert.webp" alt="" width="1600" height="900" loading="lazy" />
+      <div class="army__overlay"></div>
+      <div class="army__content">
+        <p class="army__ko" data-split>사랑해요</p>
+        <h2 class="army__title reveal">Um oceano de lightsticks, de fã pra fã</h2>
+        <p class="army__lead reveal">Noites temáticas, playlists, sorteios de photocards e drinks especiais. Siga a gente para saber das próximas.</p>
+        <div class="army__stats">
+          <div class="stat reveal"><strong data-count="7">0</strong><span>grupos no catálogo inicial</span></div>
+          <div class="stat reveal"><strong data-count="100" data-suffix="%">0</strong><span>produtos originais</span></div>
+          <div class="stat reveal"><strong data-count="4">0</strong><span>drinks autorais no cardápio</span></div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+      <figure class="about__map reveal">
+        <div class="about__mapa" id="mapa" role="region" aria-label="Mapa de Caxias, Maranhão, onde fica a loja"><p class="about__loading">Carregando o mapa de Caxias-MA…</p></div>
+        <figcaption><b>Caxias, Maranhão</b><span>Endereço da loja em breve</span></figcaption>
+      </figure>
+      <div class="about__copy">
+        <p class="hand">Sobre nós</p>
+        <h2 class="section__title reveal">Uma loja feita por fãs, em Caxias-MA</h2>
+        <p class="reveal">A Jimin-ssi nasceu do amor pelo K-pop e pela cultura coreana. Aqui você encontra seus álbuns e colecionáveis favoritos e, de quebra, prova drinks e comidas que parecem saídos de um MV.</p>
+        <ul class="about__list">
+          <li class="reveal"><svg class="ico" aria-hidden="true"><use href="#i-coracao"/></svg>BTS, BLACKPINK, TWICE, STRAY KIDS, TXT, ATEEZ e MAMAMOO (e mais, conforme a procura)</li>
+          <li class="reveal"><svg class="ico" aria-hidden="true"><use href="#i-etiqueta"/></svg>Do chaveiro ao lightstick de colecionador: preços para todo bolso</li>
+          <li class="reveal"><svg class="ico" aria-hidden="true"><use href="#i-boba"/></svg>Área de drinks e comidas coreanas, para fãs e curiosos</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM (principal canal de divulgação do plano) -->
+    <section class="insta" id="instagram">
+      <header class="section__head">
+        <div><p class="hand">Siga a gente</p><h2 class="section__title reveal">No Instagram</h2></div>
+        <a class="btn btn--ghost magnetic" href="#" data-insta>@jiminssi.kpop</a>
+      </header>
+      <div class="insta__grid" id="instaGrid"></div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="news" id="contato">
+      <h2 class="section__title reveal">Ganhe 10% na primeira compra</h2>
+      <p class="reveal">Cadastre seu e-mail para receber o cupom, lançamentos, reposições e campanhas.</p>
+      <form class="news__form" id="newsForm" novalidate>
+        <label class="sr-only" for="newsEmail">Seu e-mail</label>
+        <input id="newsEmail" type="email" placeholder="Seu e-mail" required />
+        <button class="btn btn--dark magnetic" type="submit">Quero meu cupom</button>
+      </form>
+      <p class="news__msg" id="newsMsg" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <span class="brand__name">Jimin-ssi</span>
+      <p>K-pop · Drinks · Food</p>
+      <p class="hand">Always with you <svg class="ico" aria-hidden="true"><use href="#i-coracao"/></svg></p>
+    </div>
+    <div><h3>Institucional</h3><a href="#sobre">Sobre nós</a><a href="#">Políticas de privacidade</a><a href="#">Termos de uso</a></div>
+    <div><h3>Atendimento</h3><a href="#contato">Fale conosco</a><a href="#" data-whats>WhatsApp Business</a><a href="#" id="openPanel">Painel de indicadores (demo)</a><a href="#" id="openCredits">Créditos das fotos</a></div>
+    <p class="footer__legal">© <span id="year"></span> Jimin-ssi. Imagens ilustrativas geradas por IA. Nomes de artistas e grupos pertencem aos seus titulares; loja independente, sem vínculo oficial com os artistas ou suas agências.</p>
+  </footer>
+
+  <!-- CARRINHO -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Carrinho" aria-hidden="true">
+    <header class="drawer__head">
+      <h2>Meu carrinho</h2>
+      <button class="icon-btn" id="drawerClose" type="button" aria-label="Fechar carrinho"><svg class="ico" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    </header>
+    <div class="ship">
+      <p id="shipText">Faltam R$ 299,00 para o frete grátis</p>
+      <div class="ship__bar"><span id="shipBar"></span></div>
+    </div>
+    <ul class="drawer__list" id="cartList"></ul>
+    <footer class="drawer__foot">
+      <div class="row"><span>Subtotal</span><strong id="cartSubtotal">R$ 0,00</strong></div>
+      <form class="coupon" id="couponForm"><label class="sr-only" for="couponInput">Cupom</label><input id="couponInput" placeholder="Cupom (ex.: BEMVINDO10)" autocomplete="off" /><button class="btn btn--ghost" type="submit">Aplicar</button></form>
+      <div class="row row--disc" id="discRow" hidden><span id="discLabel">Desconto</span><strong id="cartDiscount">− R$ 0,00</strong></div>
+      <div class="row"><span>Frete</span><span id="cartShip">Calcular</span></div>
+      <p class="pay">Pix · Cartão · Retirada grátis na loja em Caxias-MA</p>
+      <div class="row row--total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <button class="btn btn--pink btn--block" id="checkout" type="button">Finalizar compra</button>
+      <button class="btn btn--ghost btn--block" id="keepShopping" type="button">Continuar comprando</button>
+    </footer>
+  </aside>
+
+  <!-- QUICK VIEW -->
+  <dialog class="quick" id="quick">
+    <button class="icon-btn quick__close" type="button" aria-label="Fechar" data-close><svg class="ico" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="quick__body" id="quickBody"></div>
+  </dialog>
+
+  <!-- PAINEL DE INDICADORES (SIG): seção 4 do plano -->
+  <dialog class="panel" id="panel">
+    <button class="icon-btn quick__close" type="button" aria-label="Fechar" data-close><svg class="ico" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="panel__body" id="panelBody"></div>
+  </dialog>
+
+  <dialog class="panel" id="credits">
+    <button class="icon-btn quick__close" type="button" aria-label="Fechar" data-close><svg class="ico" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="panel__body" id="creditsBody"></div>
+  </dialog>
+
+  <a class="whats" href="#" data-whats aria-label="Atendimento pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 16.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.3 7.3 0 1 1 12 19.3Zm4-5.4c-.2-.1-1.3-.7-1.5-.7s-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.3.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.4 4.4 0 0 0 .9 2.3 10 10 0 0 0 3.9 3.4c1.4.6 2 .7 2.7.6a2.3 2.3 0 0 0 1.5-1.1 1.9 1.9 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3Z"/></svg>
+  </a>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
